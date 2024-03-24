@@ -10,7 +10,7 @@ import com.bezkoder.spring.restapi.model.Tutorial;
 @Service
 public class TutorialService {
 
-  static List<Tutorial> tutorials = new ArrayList<Tutorial>();
+  static List<Tutorial> tutorials = new ArrayList<>();
   static long id = 0;
 
   public List<Tutorial> findAll() {

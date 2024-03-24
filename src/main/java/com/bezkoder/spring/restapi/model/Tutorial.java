@@ -9,10 +9,6 @@ public class Tutorial {
 
   private boolean published;
 
-  public Tutorial() {
-
-  }
-
   public Tutorial(String title, String description, boolean published) {
     this.title = title;
     this.description = description;

@@ -30,12 +30,12 @@ public class TutorialController {
   @GetMapping("/tutorials")
   public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = false) String title) {
     try {
-      List<Tutorial> tutorials = new ArrayList<Tutorial>();
+      List<Tutorial> tutorials = new ArrayList<>();
 
       if (title == null)
-        tutorialService.findAll().forEach(tutorials::add);
+          tutorials.addAll(tutorialService.findAll());
       else
-        tutorialService.findByTitleContaining(title).forEach(tutorials::add);
+          tutorials.addAll(tutorialService.findByTitleContaining(title));
 
       if (tutorials.isEmpty()) {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
