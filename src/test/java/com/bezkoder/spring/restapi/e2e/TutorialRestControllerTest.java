@@ -1,8 +1,9 @@
 package com.bezkoder.spring.restapi.e2e;
 
-import com.bezkoder.spring.restapi.controller.TutorialController;
-import com.bezkoder.spring.restapi.model.Tutorial;
-import com.bezkoder.spring.restapi.service.TutorialService;
+import com.bezkoder.spring.restapi.application.useCases.GetAllTutorialsUseCase;
+import com.bezkoder.spring.restapi.domain.entities.Tutorial;
+import com.bezkoder.spring.restapi.infrastructure.adapters.TutorialAdapter;
+import com.bezkoder.spring.restapi.infrastructure.controller.TutorialRestController;
 import fixtures.TutorialFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,15 +16,18 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(TutorialController.class)
-public class TutorialControllerTest {
+@WebMvcTest(TutorialRestController.class)
+public class TutorialRestControllerTest {
 
 
     @Autowired
     private MockMvc mvc;
 
     @SpyBean
-    private TutorialService tutorialService;
+    private TutorialAdapter tutorialPort;
+
+    @SpyBean
+    private GetAllTutorialsUseCase getAllTutorialsUseCase;
 
     @BeforeEach
     public void setup() {
@@ -67,10 +71,10 @@ public class TutorialControllerTest {
     }
 
     private void resetData() {
-        tutorialService.deleteAll();
+        tutorialPort.deleteAll();
     }
 
     private Tutorial givenATutorialService() {
-        return tutorialService.save(TutorialFixture.random());
+        return tutorialPort.save(TutorialFixture.random());
     }
 }
